@@ -27,7 +27,7 @@ service "mongodb" do
   action [:disable, :stop]
 end
 
-is_replicated = node.recipes.include?("mongodb::replicaset")
+is_replicated = node.recipe?("mongodb::replicaset")
 
 
 # we are not starting the shard service with the --shardsvr
@@ -42,4 +42,5 @@ mongodb_instance "shard" do
     replicaset    node
   end
   enable_rest node['mongodb']['enable_rest']
+  smallfiles   node['mongodb']['smallfiles']
 end
